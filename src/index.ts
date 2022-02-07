@@ -7,15 +7,16 @@ const circle = document.querySelector('circle')
 const perimiter = parseFloat(circle.getAttribute('r'))*2*Math.PI;
 circle.setAttribute('stroke-dasharray', `${perimiter}`);
 
-let currentOffset:number = 0;
-
+let duration:number;
 const timer = new Timer(durationInput, startButton , pauseButton , {
-    onStart(){
+    onStart(totalDuration:number){
+        duration = totalDuration;
         console.log('onStart');
     },
-    onTick(){
-        circle.setAttribute('stroke-dashoffset', `${currentOffset}`)
-        currentOffset = currentOffset - 50
+    onTick(timeRemaining:number){
+        circle.setAttribute('stroke-dashoffset', 
+        `${perimiter*timeRemaining/duration - perimiter}`
+        );
     },
     onComplete(){
         console.log('completed countdown');

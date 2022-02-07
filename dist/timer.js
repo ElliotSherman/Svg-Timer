@@ -3,10 +3,10 @@ var Timer = /** @class */ (function () {
         var _this = this;
         this.start = function () {
             if (_this.onStart) {
-                _this.onStart();
+                _this.onStart(_this.timeRemaining);
             }
             _this.tick();
-            _this.interval = setInterval(_this.tick, 1000);
+            _this.interval = setInterval(_this.tick, 50);
         };
         this.pause = function () {
             clearInterval(_this.interval);
@@ -20,9 +20,9 @@ var Timer = /** @class */ (function () {
                 }
             }
             else {
-                _this.timeRemaining = _this.timeRemaining - 1;
+                _this.timeRemaining = _this.timeRemaining - 0.05;
                 if (_this.onTick) {
-                    _this.onTick();
+                    _this.onTick(_this.timeRemaining);
                 }
             }
         };
@@ -43,7 +43,7 @@ var Timer = /** @class */ (function () {
             return parseFloat(this.durationInput.value);
         },
         set: function (time) {
-            this.durationInput.value = time.toString();
+            this.durationInput.value = time.toFixed(2).toString();
         },
         enumerable: false,
         configurable: true
