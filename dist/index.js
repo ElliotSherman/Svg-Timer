@@ -10,8 +10,12 @@ var Timer = /** @class */ (function () {
             console.log('paused');
         };
         this.tick = function () {
-            var timeRemaining = parseFloat(_this.durationInput.value);
-            _this.durationInput.value = (timeRemaining - 1).toString();
+            if (_this.timeRemaining <= 0) {
+                _this.pause();
+            }
+            else {
+                _this.timeRemaining = _this.timeRemaining - 1;
+            }
         };
         this.durationInput = durationInput;
         this.startBtn = startBtn;
@@ -20,6 +24,16 @@ var Timer = /** @class */ (function () {
         this.pauseBtn.addEventListener('click', this.pause);
     }
     ;
+    Object.defineProperty(Timer.prototype, "timeRemaining", {
+        get: function () {
+            return parseFloat(this.durationInput.value);
+        },
+        set: function (time) {
+            this.durationInput.value = time.toString();
+        },
+        enumerable: false,
+        configurable: true
+    });
     return Timer;
 }());
 var durationInput = document.querySelector('#duration');

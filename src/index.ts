@@ -20,8 +20,17 @@ class Timer{
         console.log('paused');
     }
     tick = ()=>{
-        const timeRemaining = parseFloat(this.durationInput.value);
-        this.durationInput.value = (timeRemaining-1).toString();
+        if(this.timeRemaining <= 0 ){
+            this.pause();
+        }else{
+        this.timeRemaining = this.timeRemaining - 1;
+        }
+    }
+    get timeRemaining():number{
+        return parseFloat(this.durationInput.value)
+    }
+    set timeRemaining(time) {
+        this.durationInput.value = time.toString();
     }
 }
 
