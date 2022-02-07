@@ -3,7 +3,12 @@ declare class Timer {
     startBtn: Element;
     pauseBtn: Element;
     interval: number;
-    constructor(durationInput: HTMLInputElement, startBtn: Element, pauseBtn: Element);
+    onStart: CallableFunction;
+    constructor(durationInput: HTMLInputElement, startBtn: Element, pauseBtn: Element, callbacks?: {
+        onStart: CallableFunction;
+        onTick: CallableFunction;
+        onComplete: CallableFunction;
+    });
     start: () => void;
     pause: () => void;
     tick: () => void;

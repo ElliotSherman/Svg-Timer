@@ -1,7 +1,10 @@
 var Timer = /** @class */ (function () {
-    function Timer(durationInput, startBtn, pauseBtn) {
+    function Timer(durationInput, startBtn, pauseBtn, callbacks) {
         var _this = this;
         this.start = function () {
+            if (_this.onStart) {
+                _this.onStart();
+            }
             _this.tick();
             _this.interval = setInterval(_this.tick, 1000);
         };
@@ -20,6 +23,9 @@ var Timer = /** @class */ (function () {
         this.durationInput = durationInput;
         this.startBtn = startBtn;
         this.pauseBtn = pauseBtn;
+        if (callbacks) {
+            this.onStart = callbacks.onStart;
+        }
         this.startBtn.addEventListener('click', this.start);
         this.pauseBtn.addEventListener('click', this.pause);
     }
@@ -39,4 +45,12 @@ var Timer = /** @class */ (function () {
 var durationInput = document.querySelector('#duration');
 var startButton = document.querySelector('#start');
 var pauseButton = document.querySelector('#pause');
-var timer = new Timer(durationInput, startButton, pauseButton);
+var timer = new Timer(durationInput, startButton, pauseButton, {
+    onStart: function () {
+        console.log('onStart');
+    },
+    onTick: function () {
+    },
+    onComplete: function () {
+    },
+});
